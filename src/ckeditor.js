@@ -55,6 +55,7 @@ ClassicEditor.defaultConfig = {
 			'redo'
 		]
 	},
+	plugins: ClassicEditor.builtinPlugins,
 	language: 'en'
 };
 
@@ -63,12 +64,12 @@ function MentionCustomization( editor ) {
 	// elements to the model 'mention' text attribute.
 	editor.conversion.for( 'upcast' ).elementToAttribute( {
 		view: {
-			name: 'a',
+			name: 'span',
 			key: 'data-mention',
 			classes: 'mention',
 			attributes: {
 				href: true,
-				'data-user-id': true
+				'data-item-id': true
 			}
 		},
 		model: {
@@ -79,8 +80,7 @@ function MentionCustomization( editor ) {
 				// In order to create a proper object use the toMentionAttribute() helper method:
 				const mentionAttribute = editor.plugins.get( 'Mention' ).toMentionAttribute( viewItem, {
 					// Add any other properties that you need.
-					link: viewItem.getAttribute( 'href' ),
-					userId: viewItem.getAttribute( 'data-user-id' )
+					dataId: viewItem.getAttribute( 'data-item-id' )
 				} );
 
 				return mentionAttribute;
@@ -98,11 +98,10 @@ function MentionCustomization( editor ) {
 				return;
 			}
 
-			return viewWriter.createAttributeElement( 'a', {
+			return viewWriter.createAttributeElement( 'span', {
 				class: 'mention',
 				'data-mention': modelAttributeValue.id,
-				'data-user-id': modelAttributeValue.userId,
-				'href': modelAttributeValue.link
+				'data-item-id': modelAttributeValue.dataId,
 			} );
 		},
 		converterPriority: 'high'
