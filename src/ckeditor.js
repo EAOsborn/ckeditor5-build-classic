@@ -67,7 +67,7 @@ function MentionCustomization( editor ) {
 			key: 'data-mention',
 			classes: 'mention',
 			attributes: {
-				href: true,
+				// href: true,
 				'data-item-id': true
 			}
 		},
@@ -96,7 +96,7 @@ function MentionCustomization( editor ) {
 			if ( !modelAttributeValue ) {
 				return;
 			}
-
+			// console.log(modelAttributeValue.itemId);
 			return viewWriter.createAttributeElement( 'span', {
 				class: 'mention',
 				'data-mention': modelAttributeValue.id,
